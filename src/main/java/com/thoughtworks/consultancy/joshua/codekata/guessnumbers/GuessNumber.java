@@ -1,24 +1,22 @@
 package com.thoughtworks.consultancy.joshua.codekata.guessnumbers;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
+import java.util.Map;
 
 public class GuessNumber {
 
-	public String getResult(int i) {
-		String[] goals = { "1", "2", "3", "4" };
-		String param = String.valueOf(i);
+	public String getResult(int i, int answer) {
+		NumberSpliter numberSpliter = new NumberSpliter();
+		Map<Integer, Integer> inputMap = numberSpliter.splitNumber(i);
+		Map<Integer, Integer> answerMap = numberSpliter.splitNumber(answer);
+
 		int anum = 0;
 		int bnum = 0;
-		for (int k = 0; k < 4; k++) {
-			String a = StringUtils.substring(param, k, k + 1);
-			for (String goal : goals) {
-				if (goal.equals(a)) {
-					if (goals[k].equals(a)) {
-						anum++;
-					}else {
-						bnum++;
-					}
+		for (Integer inputInt : inputMap.keySet()) {
+			if (answerMap.get(inputInt) != null) {
+				if (answerMap.get(inputInt) == inputMap.get(inputInt)) {
+					anum++;
+				} else {
+					bnum++;
 				}
 			}
 		}
